@@ -79,7 +79,7 @@ namespace ProcessamentoImagens
             imageBitmapDest.UnlockBits(bitmapDataDst);
         }
 
-        public async static void AddBrightness(Bitmap src, HSI[][] hsiValues)
+        public static void AddBrightness(Bitmap src, HSI[][] hsiValues)
         {
             int width = src.Width;
             int height = src.Height;

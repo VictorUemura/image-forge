@@ -17,11 +17,10 @@ namespace ProcessamentoImagens
         public static RGB ToRGB(HSI hsi)
         {
             double h = hsi.H * Math.PI / 180.0;
-            Console.WriteLine(h);
+
             double s = hsi.S / 100.0;
-            Console.WriteLine(s);
+
             double i = hsi.I / 255.0;
-            Console.WriteLine(i);
 
             double x, y, z;
 
@@ -38,7 +37,6 @@ namespace ProcessamentoImagens
                 x = i * (1 - s);
                 y = i * (1 + (s * Math.Cos(h)) / Math.Cos((Math.PI / 3.0) - h));
                 z = 3 * i - (x + y);
-                Console.WriteLine(x + " " + y + " " + z);
                 return new RGB((int)(x * 255), (int)(y * 255), (int)(z * 255));
             }
             else // Setor 2: 240° a 360°
@@ -78,8 +76,14 @@ namespace ProcessamentoImagens
             double s = 1 - 3 * Math.Min(normalizedRGB.R, Math.Min(normalizedRGB.G, normalizedRGB.B));
 
             double i = (rgb.R + rgb.G + rgb.B) / (3.0 * 255);
-
-            h = h * 180 / Math.PI;
+            if (h is double.NaN)
+            {
+                h = 0;
+            }
+            else
+            {
+                h = h * 180 / Math.PI;
+            }
             s = s * 100;
             i = i * 255;
 
