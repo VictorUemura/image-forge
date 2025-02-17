@@ -13,13 +13,15 @@ namespace ProcessamentoImagens
     {
         private Image image;
         private Bitmap imageBitmap;
+        private double brightness;
+        private HSI[][] hsiValues;
 
         public frmPrincipal()
         {
             InitializeComponent();
         }
 
-        private void btnAbrirImagem_Click(object sender, EventArgs e)
+        private void openImage(object sender, EventArgs e)
         {
             openFileDialog.FileName = "";
             openFileDialog.Filter = "Arquivos de Imagem (*.jpg;*.gif;*.bmp;*.png)|*.jpg;*.gif;*.bmp;*.png";
@@ -28,23 +30,48 @@ namespace ProcessamentoImagens
                 image = Image.FromFile(openFileDialog.FileName);
                 pictBoxImg1.Image = image;
                 pictBoxImg1.SizeMode = PictureBoxSizeMode.Normal;
+                loadImage();
             }
         }
 
-
-        private void btnNegativoSemDMA_Click(object sender, EventArgs e)
+        private void loadImage()
         {
-            Bitmap imgDest = new Bitmap(image);
-            imageBitmap = (Bitmap)image;
-            Filtros.negativo(imageBitmap, imgDest);
+            brightness = 255;
+            hsiValues = new HSI[image.Height][];
+            for (int i = 0; i < image.Height; i++)
+            {
+                hsiValues[i] = new HSI[image.Width];
+            }
+
+            for(int i = 0; i < image.Height; i++)
+            {
+                for (int j = 0; j < image.Width; j++)
+                {
+                    Color pixel = ((Bitmap)image).GetPixel(j, i);
+                    RGB rgb = new RGB(pixel.R, pixel.G, pixel.B);
+                    hsiValues[i][j] = Utils.ToHSI(rgb);
+                    if(hsiValues[i][j].I < brightness)
+                    {
+                        brightness = hsiValues[i][j].I;
+                    }
+                }
+            }
         }
 
-        private void btnNegativoComDMA_Click(object sender, EventArgs e)
+        private void AddBrightnessButton(object sender, EventArgs e)
         {
-            Bitmap imgDest = new Bitmap(image);
-            imageBitmap = (Bitmap)image;
-            Filtros.negativoDMA(imageBitmap, imgDest);
+            if(brightness < 255)
+            {
+                brightness += 10;
+                imageBitmap = new Bitmap(image);
+                ColorManipulator.AddBrightness(imageBitmap, hsiValues);
+                pictBoxImg1.Image = imageBitmap;
+            }
         }
 
+        private void RemoveBrightnessButton(object sender, EventArgs e)
+        {
+
+        }
     }
 }

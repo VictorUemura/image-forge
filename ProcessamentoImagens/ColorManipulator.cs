@@ -7,7 +7,7 @@ using System.IO;
 
 namespace ProcessamentoImagens
 {
-    class Filtros
+    class ColorManipulator
     {
         //sem acesso direito a memoria
         public static void negativo(Bitmap imageBitmapSrc, Bitmap imageBitmapDest)
@@ -77,6 +77,46 @@ namespace ProcessamentoImagens
             imageBitmapSrc.UnlockBits(bitmapDataSrc);
             //unlock imagem destino
             imageBitmapDest.UnlockBits(bitmapDataDst);
+        }
+
+        public async static void AddBrightness(Bitmap src, HSI[][] hsiValues)
+        {
+            int width = src.Width;
+            int height = src.Height;
+            int pixelSize = 3;
+
+            BitmapData bitmapDataSrc = src.LockBits(new Rectangle(0, 0, width, height),
+                ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
+
+            int padding = bitmapDataSrc.Stride - (width * pixelSize);
+            unsafe
+            {
+                byte* srcPointer = (byte*)bitmapDataSrc.Scan0.ToPointer();
+                int r, g, b;
+                for (int y = 0; y < height; y++)
+                {
+                    for (int x = 0; x < width; x++)
+                    {
+                        hsiValues[y][x].I += 10;
+                        RGB rgb;
+                        if (hsiValues[y][x].I > 255)
+                        {
+                            HSI hsi = new HSI(hsiValues[y][x].H, hsiValues[y][x].S, 255);
+                            rgb = Utils.ToRGB(hsi);
+                        }
+                        else
+                        {
+                            rgb = Utils.ToRGB(hsiValues[y][x]);
+                        }
+
+                        *(srcPointer++) = (byte)rgb.B;
+                        *(srcPointer++) = (byte)rgb.G;
+                        *(srcPointer++) = (byte)rgb.R;
+                    }
+                    srcPointer += padding;
+                }
+            }
+            src.UnlockBits(bitmapDataSrc);
         }
     }
 }
