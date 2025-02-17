@@ -41,6 +41,8 @@
             this.pictureBoxR = new System.Windows.Forms.PictureBox();
             this.RGBLabel = new System.Windows.Forms.Label();
             this.HSILabel = new System.Windows.Forms.Label();
+            this.operationLabel = new System.Windows.Forms.Label();
+            this.valuesOfChannelLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictBoxImg1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxH)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxS)).BeginInit();
@@ -58,6 +60,7 @@
             this.pictBoxImg1.Size = new System.Drawing.Size(600, 500);
             this.pictBoxImg1.TabIndex = 102;
             this.pictBoxImg1.TabStop = false;
+            this.pictBoxImg1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.DetectMouseMoviment);
             // 
             // btnAbrirImagem
             // 
@@ -67,7 +70,7 @@
             this.btnAbrirImagem.TabIndex = 106;
             this.btnAbrirImagem.Text = "Abrir Imagem";
             this.btnAbrirImagem.UseVisualStyleBackColor = true;
-            this.btnAbrirImagem.Click += new System.EventHandler(this.openImage);
+            this.btnAbrirImagem.Click += new System.EventHandler(this.OpenImage);
             // 
             // AddBrightness
             // 
@@ -165,11 +168,29 @@
             this.HSILabel.Text = "HSI";
             this.HSILabel.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
+            // operationLabel
+            // 
+            this.operationLabel.AutoSize = true;
+            this.operationLabel.Location = new System.Drawing.Point(112, 517);
+            this.operationLabel.Name = "operationLabel";
+            this.operationLabel.Size = new System.Drawing.Size(0, 13);
+            this.operationLabel.TabIndex = 117;
+            // 
+            // valuesOfChannelLabel
+            // 
+            this.valuesOfChannelLabel.AutoSize = true;
+            this.valuesOfChannelLabel.Location = new System.Drawing.Point(12, 586);
+            this.valuesOfChannelLabel.Name = "valuesOfChannelLabel";
+            this.valuesOfChannelLabel.Size = new System.Drawing.Size(0, 13);
+            this.valuesOfChannelLabel.TabIndex = 118;
+            // 
             // frmPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1220, 608);
+            this.Controls.Add(this.valuesOfChannelLabel);
+            this.Controls.Add(this.operationLabel);
             this.Controls.Add(this.HSILabel);
             this.Controls.Add(this.RGBLabel);
             this.Controls.Add(this.pictureBoxB);
@@ -212,6 +233,8 @@
         private System.Windows.Forms.PictureBox pictureBoxR;
         private System.Windows.Forms.Label RGBLabel;
         private System.Windows.Forms.Label HSILabel;
+        private System.Windows.Forms.Label operationLabel;
+        private System.Windows.Forms.Label valuesOfChannelLabel;
     }
 }
 

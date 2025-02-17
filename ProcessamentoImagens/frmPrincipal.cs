@@ -6,6 +6,8 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using System.Drawing.Imaging;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace ProcessamentoImagens
 {
@@ -21,7 +23,7 @@ namespace ProcessamentoImagens
             InitializeComponent();
         }
 
-        private void openImage(object sender, EventArgs e)
+        private void OpenImage(object sender, EventArgs e)
         {
             openFileDialog.FileName = "";
             openFileDialog.Filter = "Arquivos de Imagem (*.jpg;*.gif;*.bmp;*.png)|*.jpg;*.gif;*.bmp;*.png";
@@ -30,8 +32,11 @@ namespace ProcessamentoImagens
                 image = Image.FromFile(openFileDialog.FileName);
                 pictBoxImg1.Image = image;
                 pictBoxImg1.SizeMode = PictureBoxSizeMode.Normal;
+                operationLabel.Text = "Carregando imagem...";
                 LoadImage();
+                operationLabel.Text = "Criando miniaturas...";
                 LoadPictureBoxOtherChannel();
+                operationLabel.Text = "";
             }
         }
 
@@ -53,8 +58,8 @@ namespace ProcessamentoImagens
                     Color pixel = bitmap.GetPixel(x, y);
                     RGB rgb = new RGB(pixel.R, pixel.G, pixel.B);
                     hsiValues[x][y] = Utils.ToHSI(rgb);
-                    if(x == 53 && y == 64)
-                    Console.WriteLine($"Created a new value in hsiValues\nPosition is x: {x}, y: {y}\nValue is: H: {hsiValues[x][y].H}, S: {hsiValues[x][y].S}, I: {hsiValues[x][y].I}\nValues a rgb: R: {rgb.R}, G: {rgb.G}, B: {rgb.B}\n");
+                    if (x == 53 && y == 64)
+                        Console.WriteLine($"Created a new value in hsiValues\nPosition is x: {x}, y: {y}\nValue is: H: {hsiValues[x][y].H}, S: {hsiValues[x][y].S}, I: {hsiValues[x][y].I}\nValues a rgb: R: {rgb.R}, G: {rgb.G}, B: {rgb.B}\n");
                     brightness = Math.Min(brightness, hsiValues[x][y].I);
                 }
             }
@@ -72,7 +77,7 @@ namespace ProcessamentoImagens
             Bitmap imageBitmapS = new Bitmap(width, height);
             Bitmap imageBitmapI = new Bitmap(width, height);
 
-            for(int y = 0; y < height; y++)
+            for (int y = 0; y < height; y++)
             {
                 for (int x = 0; x < width; x++)
                 {
@@ -98,7 +103,7 @@ namespace ProcessamentoImagens
 
         private void AddBrightnessButton(object sender, EventArgs e)
         {
-            if(brightness < 255)
+            if (brightness < 255)
             {
                 brightness += 10;
                 imageBitmap = new Bitmap(image);
@@ -109,6 +114,21 @@ namespace ProcessamentoImagens
 
         private void RemoveBrightnessButton(object sender, EventArgs e)
         {
+
+        }
+
+        private void DetectMouseMoviment(object sender, MouseEventArgs e)
+        {
+            if (image != null)
+            {
+                int x = e.X;
+                int y = e.Y;
+                if (x < image.Width && y < image.Height)
+                {
+                    RGB rgb = Utils.ToRGB(hsiValues[x][y]);
+                    valuesOfChannelLabel.Text = $"R: {rgb.R}, G: {rgb.G}, B: {rgb.B}\nH: {hsiValues[x][y].H}º, S: {hsiValues[x][y].S}%, I: {hsiValues[x][y].I}";
+                }
+            }
 
         }
     }

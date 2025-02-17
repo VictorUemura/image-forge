@@ -9,10 +9,6 @@ namespace ProcessamentoImagens
 {
     class Utils
     {
-        public static RGB ToRGB(CMY cmy)
-        {
-            return null;
-        }
 
         public static RGB ToRGB(HSI hsi)
         {
@@ -49,16 +45,6 @@ namespace ProcessamentoImagens
             }
         }
 
-        public static CMY ToCMY(RGB rgb)
-        {
-            return null;
-        }
-
-        public static CMY ToCMY(HSI hsi)
-        {
-            return null;
-        }
-
         public static HSI ToHSI(RGB rgb)
         {
             NormalizedRGB normalizedRGB = new NormalizedRGB(rgb);
@@ -90,9 +76,5 @@ namespace ProcessamentoImagens
             return new HSI(h, s, i);
         }
 
-        public static HSI ToHSI(CMY cmy)
-        {
-            return null;
-        }
     }
 }
