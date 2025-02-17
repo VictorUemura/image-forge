@@ -17,6 +17,7 @@ namespace ProcessamentoImagens
         private Bitmap imageBitmap;
         private double brightness;
         private HSI[][] hsiValues;
+        private CMY[][] cmyValues;
 
         public frmPrincipal()
         {
@@ -45,9 +46,11 @@ namespace ProcessamentoImagens
         {
             brightness = 255;
             hsiValues = new HSI[image.Width][];
+            cmyValues = new CMY[image.Width][];
             for (int i = 0; i < image.Width; i++)
             {
                 hsiValues[i] = new HSI[image.Height];
+                cmyValues[i] = new CMY[image.Height];
             }
 
             Bitmap bitmap = (Bitmap)image;
@@ -59,6 +62,7 @@ namespace ProcessamentoImagens
                     Color pixel = bitmap.GetPixel(x, y);
                     RGB rgb = new RGB(pixel.R, pixel.G, pixel.B);
                     hsiValues[x][y] = Utils.ToHSI(rgb);
+                    cmyValues[x][y] = Utils.ToCMY(rgb);
                     brightness = Math.Min(brightness, hsiValues[x][y].I);
                 }
             }
@@ -159,7 +163,7 @@ namespace ProcessamentoImagens
                 if (x < image.Width && y < image.Height)
                 {
                     RGB rgb = Utils.ToRGB(hsiValues[x][y]);
-                    valuesOfChannelLabel.Text = $"R: {rgb.R}, G: {rgb.G}, B: {rgb.B}\nH: {hsiValues[x][y].H}º, S: {hsiValues[x][y].S}%, I: {hsiValues[x][y].I}";
+                    valuesOfChannelLabel.Text = $"R: {rgb.R}, G: {rgb.G}, B: {rgb.B}\nH: {hsiValues[x][y].H}º, S: {hsiValues[x][y].S}%, I: {hsiValues[x][y].I}\nC: {cmyValues[x][y].C}, M: {cmyValues[x][y].M}, Y: {cmyValues[x][y].Y}";
                 }
 
             }

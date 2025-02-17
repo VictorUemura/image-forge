@@ -76,5 +76,10 @@ namespace ProcessamentoImagens
             return new HSI(h, s, i);
         }
 
+        public static CMY ToCMY(RGB rgb)
+        {
+            return new CMY(255 - rgb.R, 255 - rgb.G, 255 - rgb.B);
+        }
+
     }
 }
