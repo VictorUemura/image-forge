@@ -8,10 +8,10 @@ namespace ProcessamentoImagens
 {
     class CMY
     {
-        byte C;
-        byte M;
-        byte Y;
-        public CMY(byte c, byte m, byte y)
+        public int C { get; set; }
+        public int M { get; set; }
+        public int Y { get; set; }
+        public CMY(int c, int m, int y)
         {
             C = c;
             M = m;

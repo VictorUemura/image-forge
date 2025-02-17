@@ -45,5 +45,6 @@ namespace ProcessamentoImagens
             imageBitmap = (Bitmap)image;
             Filtros.negativoDMA(imageBitmap, imgDest);
         }
+
     }
 }

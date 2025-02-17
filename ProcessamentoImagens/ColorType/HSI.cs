@@ -8,9 +8,9 @@ namespace ProcessamentoImagens
 {
     class HSI
     {
-        double H;
-        double S;
-        double I;
+        public double H { get; set; }
+        public double S { get; set; }
+        public double I { get; set; }
         public HSI(double h, double s, double i)
         {
             H = h;

@@ -8,11 +8,11 @@ namespace ProcessamentoImagens
 {
     class RGB
     {
-        byte R;
-        byte G;
-        byte B;
+        public int R { get; set; }
+        public int G { get; set; }
+        public int B { get; set; }
 
-        public RGB(byte r, byte g, byte b)
+        public RGB(int r, int g, int b)
         {
             R = r;
             G = g;
