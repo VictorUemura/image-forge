@@ -162,8 +162,17 @@ namespace ProcessamentoImagens
                     valuesOfChannelLabel.Text = $"R: {rgb.R}, G: {rgb.G}, B: {rgb.B}\nH: {hsiValues[x][y].H}º, S: {hsiValues[x][y].S}%, I: {hsiValues[x][y].I}";
                 }
 
-                }
+            }
 
+        }
+
+        private void IsolarFaixaHue(object sender, EventArgs e)
+        {
+            int initialValue = int.Parse(textBoxFaixa1.Text);
+            int finalValue = int.Parse(textBoxFaixa2.Text);
+
+            ColorManipulator.FilterRangeHue(initialValue, finalValue, imageBitmap, hsiValues);
+            pictBoxImg1.Image = imageBitmap;
         }
     }
 }

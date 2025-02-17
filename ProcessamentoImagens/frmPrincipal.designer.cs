@@ -45,6 +45,9 @@
             this.valuesOfChannelLabel = new System.Windows.Forms.Label();
             this.pictureBoxLuminancia = new System.Windows.Forms.PictureBox();
             this.LuminanciaLabel = new System.Windows.Forms.Label();
+            this.textBoxFaixa1 = new System.Windows.Forms.TextBox();
+            this.textBoxFaixa2 = new System.Windows.Forms.TextBox();
+            this.IsolarFaixaButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictBoxImg1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxH)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxS)).BeginInit();
@@ -207,11 +210,38 @@
             this.LuminanciaLabel.Text = "Luminância";
             this.LuminanciaLabel.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
+            // textBoxFaixa1
+            // 
+            this.textBoxFaixa1.Location = new System.Drawing.Point(183, 514);
+            this.textBoxFaixa1.Name = "textBoxFaixa1";
+            this.textBoxFaixa1.Size = new System.Drawing.Size(100, 20);
+            this.textBoxFaixa1.TabIndex = 121;
+            // 
+            // textBoxFaixa2
+            // 
+            this.textBoxFaixa2.Location = new System.Drawing.Point(300, 515);
+            this.textBoxFaixa2.Name = "textBoxFaixa2";
+            this.textBoxFaixa2.Size = new System.Drawing.Size(100, 20);
+            this.textBoxFaixa2.TabIndex = 122;
+            // 
+            // IsolarFaixaButton
+            // 
+            this.IsolarFaixaButton.Location = new System.Drawing.Point(406, 513);
+            this.IsolarFaixaButton.Name = "IsolarFaixaButton";
+            this.IsolarFaixaButton.Size = new System.Drawing.Size(130, 23);
+            this.IsolarFaixaButton.TabIndex = 123;
+            this.IsolarFaixaButton.Text = "Isolar faixa de valor";
+            this.IsolarFaixaButton.UseVisualStyleBackColor = true;
+            this.IsolarFaixaButton.Click += new System.EventHandler(this.IsolarFaixaHue);
+            // 
             // frmPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1220, 645);
+            this.Controls.Add(this.IsolarFaixaButton);
+            this.Controls.Add(this.textBoxFaixa2);
+            this.Controls.Add(this.textBoxFaixa1);
             this.Controls.Add(this.LuminanciaLabel);
             this.Controls.Add(this.pictureBoxLuminancia);
             this.Controls.Add(this.valuesOfChannelLabel);
@@ -263,6 +293,9 @@
         private System.Windows.Forms.Label valuesOfChannelLabel;
         private System.Windows.Forms.PictureBox pictureBoxLuminancia;
         private System.Windows.Forms.Label LuminanciaLabel;
+        private System.Windows.Forms.TextBox textBoxFaixa1;
+        private System.Windows.Forms.TextBox textBoxFaixa2;
+        private System.Windows.Forms.Button IsolarFaixaButton;
     }
 }
 

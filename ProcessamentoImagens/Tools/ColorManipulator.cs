@@ -118,5 +118,58 @@ namespace ProcessamentoImagens
             }
             src.UnlockBits(bitmapDataSrc);
         }
+
+        public static void FilterRangeHue(int valueOne, int valueTwo, Bitmap src, HSI[][] hsiValues)
+        {
+            int width = src.Width;
+            int height = src.Height;
+            int pixelSize = 3;
+            BitmapData bitmapDataSrc = src.LockBits(new Rectangle(0, 0, width, height),
+                ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
+            int padding = bitmapDataSrc.Stride - (width * pixelSize);
+            unsafe
+            {
+                byte* srcPointer = (byte*)bitmapDataSrc.Scan0.ToPointer();
+                int r, g, b;
+                for (int y = 0; y < height; y++)
+                {
+                    for (int x = 0; x < width; x++)
+                    {
+                        if (valueOne <= valueTwo)
+                            if (hsiValues[x][y].H >= valueOne && hsiValues[x][y].H <= valueTwo)
+                            {
+                                //*(srcPointer++) = 255;
+                                //*(srcPointer++) = 255;
+                                //*(srcPointer++) = 255;
+                                srcPointer += 3;
+                            }
+                            else
+                            {
+                                *(srcPointer++) = 0;
+                                *(srcPointer++) = 0;
+                                *(srcPointer++) = 0;
+                            }
+                        else
+                        {
+                            if (hsiValues[x][y].H >= valueOne || hsiValues[x][y].H <= valueTwo)
+                            {
+                                //*(srcPointer++) = 255;
+                                //*(srcPointer++) = 255;
+                                //*(srcPointer++) = 255;
+                                srcPointer += 3;
+                            }
+                            else
+                            {
+                                *(srcPointer++) = 0;
+                                *(srcPointer++) = 0;
+                                *(srcPointer++) = 0;
+                            }
+                        }
+                    }
+                    srcPointer += padding;
+                }
+            }
+            src.UnlockBits(bitmapDataSrc);
+        }
     }
 }
