@@ -142,7 +142,11 @@ namespace ProcessamentoImagens
 
         private void RemoveBrightnessButton(object sender, EventArgs e)
         {
-
+                brightness -= 10;
+                imageBitmap = new Bitmap(image);
+                ColorManipulator.Removerightness(imageBitmap, hsiValues);
+                pictBoxImg1.Image = imageBitmap;
+            
         }
 
         private void DetectMouseMoviment(object sender, MouseEventArgs e)
