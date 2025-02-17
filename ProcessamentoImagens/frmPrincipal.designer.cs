@@ -43,6 +43,8 @@
             this.HSILabel = new System.Windows.Forms.Label();
             this.operationLabel = new System.Windows.Forms.Label();
             this.valuesOfChannelLabel = new System.Windows.Forms.Label();
+            this.pictureBoxLuminancia = new System.Windows.Forms.PictureBox();
+            this.LuminanciaLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictBoxImg1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxH)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxS)).BeginInit();
@@ -50,6 +52,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxB)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxG)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxR)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLuminancia)).BeginInit();
             this.SuspendLayout();
             // 
             // pictBoxImg1
@@ -184,11 +187,33 @@
             this.valuesOfChannelLabel.Size = new System.Drawing.Size(0, 13);
             this.valuesOfChannelLabel.TabIndex = 118;
             // 
+            // pictureBoxLuminancia
+            // 
+            this.pictureBoxLuminancia.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.pictureBoxLuminancia.Location = new System.Drawing.Point(938, 512);
+            this.pictureBoxLuminancia.Name = "pictureBoxLuminancia";
+            this.pictureBoxLuminancia.Size = new System.Drawing.Size(171, 125);
+            this.pictureBoxLuminancia.TabIndex = 119;
+            this.pictureBoxLuminancia.TabStop = false;
+            // 
+            // LuminanciaLabel
+            // 
+            this.LuminanciaLabel.AutoSize = true;
+            this.LuminanciaLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.3F);
+            this.LuminanciaLabel.Location = new System.Drawing.Point(935, 494);
+            this.LuminanciaLabel.Name = "LuminanciaLabel";
+            this.LuminanciaLabel.Size = new System.Drawing.Size(72, 15);
+            this.LuminanciaLabel.TabIndex = 120;
+            this.LuminanciaLabel.Text = "Luminância";
+            this.LuminanciaLabel.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            // 
             // frmPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1220, 608);
+            this.ClientSize = new System.Drawing.Size(1220, 645);
+            this.Controls.Add(this.LuminanciaLabel);
+            this.Controls.Add(this.pictureBoxLuminancia);
             this.Controls.Add(this.valuesOfChannelLabel);
             this.Controls.Add(this.operationLabel);
             this.Controls.Add(this.HSILabel);
@@ -213,6 +238,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxB)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxG)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxR)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLuminancia)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -235,6 +261,8 @@
         private System.Windows.Forms.Label HSILabel;
         private System.Windows.Forms.Label operationLabel;
         private System.Windows.Forms.Label valuesOfChannelLabel;
+        private System.Windows.Forms.PictureBox pictureBoxLuminancia;
+        private System.Windows.Forms.Label LuminanciaLabel;
     }
 }
 

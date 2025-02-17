@@ -31,11 +31,12 @@ namespace ProcessamentoImagens
             {
                 image = Image.FromFile(openFileDialog.FileName);
                 pictBoxImg1.Image = image;
-                pictBoxImg1.SizeMode = PictureBoxSizeMode.Normal;
+                pictBoxImg1.SizeMode = PictureBoxSizeMode.StretchImage;
                 operationLabel.Text = "Carregando imagem...";
                 LoadImage();
                 operationLabel.Text = "Criando miniaturas...";
                 LoadPictureBoxOtherChannel();
+                Luminancia();
                 operationLabel.Text = "";
             }
         }
@@ -58,11 +59,28 @@ namespace ProcessamentoImagens
                     Color pixel = bitmap.GetPixel(x, y);
                     RGB rgb = new RGB(pixel.R, pixel.G, pixel.B);
                     hsiValues[x][y] = Utils.ToHSI(rgb);
-                    if (x == 53 && y == 64)
-                        Console.WriteLine($"Created a new value in hsiValues\nPosition is x: {x}, y: {y}\nValue is: H: {hsiValues[x][y].H}, S: {hsiValues[x][y].S}, I: {hsiValues[x][y].I}\nValues a rgb: R: {rgb.R}, G: {rgb.G}, B: {rgb.B}\n");
                     brightness = Math.Min(brightness, hsiValues[x][y].I);
                 }
             }
+        }
+
+        private void Luminancia()
+        {
+            int width = image.Width;
+            int height = image.Height;
+            Bitmap imageLuminanceBitMap = new Bitmap(width, height);
+            imageBitmap = new Bitmap(image);
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    Color color = imageBitmap.GetPixel(x, y);
+                    int scale = (int)(color.R * 0.299 + color.G * 0.587 + color.B * 0.114);
+                    imageLuminanceBitMap.SetPixel(x, y, Color.FromArgb(scale, scale, scale));
+                }
+            }
+            pictureBoxLuminancia.Image = imageLuminanceBitMap;
+            pictureBoxLuminancia.SizeMode = PictureBoxSizeMode.StretchImage;
         }
 
         private void LoadPictureBoxOtherChannel()
@@ -94,11 +112,17 @@ namespace ProcessamentoImagens
                 }
             }
             pictureBoxR.Image = imageBitmapR;
+            pictureBoxR.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBoxG.Image = imageBitmapG;
+            pictureBoxG.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBoxB.Image = imageBitmapB;
+            pictureBoxB.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBoxH.Image = imageBitmapH;
+            pictureBoxH.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBoxS.Image = imageBitmapS;
+            pictureBoxS.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBoxI.Image = imageBitmapI;
+            pictureBoxI.SizeMode = PictureBoxSizeMode.StretchImage;
         }
 
         private void AddBrightnessButton(object sender, EventArgs e)
@@ -121,14 +145,24 @@ namespace ProcessamentoImagens
         {
             if (image != null)
             {
-                int x = e.X;
-                int y = e.Y;
+                int imageWidth = pictBoxImg1.Image.Width;
+                int imageHeight = pictBoxImg1.Image.Height;
+
+                int boxWidth = pictBoxImg1.ClientSize.Width;
+                int boxHeight = pictBoxImg1.ClientSize.Height;
+
+                float scaleX = (float)imageWidth / boxWidth;
+                float scaleY = (float)imageHeight / boxHeight;
+
+                int x = (int)(e.X * scaleX);
+                int y = (int)(e.Y * scaleY);
                 if (x < image.Width && y < image.Height)
                 {
                     RGB rgb = Utils.ToRGB(hsiValues[x][y]);
                     valuesOfChannelLabel.Text = $"R: {rgb.R}, G: {rgb.G}, B: {rgb.B}\nH: {hsiValues[x][y].H}º, S: {hsiValues[x][y].S}%, I: {hsiValues[x][y].I}";
                 }
-            }
+
+                }
 
         }
     }
