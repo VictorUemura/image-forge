@@ -27,7 +27,7 @@ namespace ProcessamentoImagens
         private void OpenImage(object sender, EventArgs e)
         {
             openFileDialog.FileName = "";
-            openFileDialog.Filter = "Arquivos de Imagem (*.jpg;*.gif;*.bmp;*.png)|*.jpg;*.gif;*.bmp;*.png";
+            openFileDialog.Filter = "Arquivos de Imagem (*.jpg;*.gif;*.bmp;*.png;*.jpeg)|*.jpg;*.gif;*.bmp;*.png;*.jpeg";
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 image = Image.FromFile(openFileDialog.FileName);
