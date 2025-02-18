@@ -8,6 +8,7 @@ using System.IO;
 using System.Drawing.Imaging;
 using System.Threading;
 using System.Threading.Tasks;
+using ProcessamentoImagens.Tools;
 
 namespace ProcessamentoImagens
 {
@@ -38,6 +39,7 @@ namespace ProcessamentoImagens
                 operationLabel.Text = "Criando miniaturas...";
                 LoadPictureBoxOtherChannel();
                 Luminancia();
+                LoadHistograma();
                 operationLabel.Text = "";
             }
         }
@@ -129,6 +131,12 @@ namespace ProcessamentoImagens
             pictureBoxI.SizeMode = PictureBoxSizeMode.StretchImage;
         }
 
+        private void LoadHistograma()
+        {
+            Histograma histograma = new Histograma(imageBitmap);
+            histograma.ExibirHistograma(pictureBoxHistograma);
+        }
+
         private void AddBrightnessButton(object sender, EventArgs e)
         {
             if (brightness < 255)
@@ -182,5 +190,7 @@ namespace ProcessamentoImagens
             ColorManipulator.FilterRangeHue(initialValue, finalValue, imageBitmap, hsiValues);
             pictBoxImg1.Image = imageBitmap;
         }
+
+ 
     }
 }
