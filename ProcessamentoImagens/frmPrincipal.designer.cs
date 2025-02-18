@@ -50,6 +50,8 @@
             this.IsolarFaixaButton = new System.Windows.Forms.Button();
             this.pictureBoxHistograma = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.addHue = new System.Windows.Forms.Button();
+            this.removeHue = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictBoxImg1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxH)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxS)).BeginInit();
@@ -274,11 +276,33 @@
             this.label1.TabIndex = 125;
             this.label1.Text = "Histograma";
             // 
+            // addHue
+            // 
+            this.addHue.Location = new System.Drawing.Point(815, 86);
+            this.addHue.Name = "addHue";
+            this.addHue.Size = new System.Drawing.Size(100, 23);
+            this.addHue.TabIndex = 126;
+            this.addHue.Text = "Aumentar Hue";
+            this.addHue.UseVisualStyleBackColor = true;
+            this.addHue.Click += new System.EventHandler(this.addHue_Click);
+            // 
+            // removeHue
+            // 
+            this.removeHue.Location = new System.Drawing.Point(815, 116);
+            this.removeHue.Name = "removeHue";
+            this.removeHue.Size = new System.Drawing.Size(100, 23);
+            this.removeHue.TabIndex = 127;
+            this.removeHue.Text = "Diminuir Hue";
+            this.removeHue.UseVisualStyleBackColor = true;
+            this.removeHue.Click += new System.EventHandler(this.removeHue_Click);
+            // 
             // frmPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1627, 794);
+            this.Controls.Add(this.removeHue);
+            this.Controls.Add(this.addHue);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBoxHistograma);
             this.Controls.Add(this.IsolarFaixaButton);
@@ -304,6 +328,7 @@
             this.Name = "frmPrincipal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Formulário Principal";
+            this.Load += new System.EventHandler(this.frmPrincipal_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictBoxImg1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxH)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxS)).EndInit();
@@ -342,6 +367,8 @@
         private System.Windows.Forms.Button IsolarFaixaButton;
         private System.Windows.Forms.PictureBox pictureBoxHistograma;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button addHue;
+        private System.Windows.Forms.Button removeHue;
     }
 }
 

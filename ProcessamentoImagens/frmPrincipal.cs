@@ -191,6 +191,23 @@ namespace ProcessamentoImagens
             pictBoxImg1.Image = imageBitmap;
         }
 
- 
+        private void frmPrincipal_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void addHue_Click(object sender, EventArgs e)
+        {
+            imageBitmap = new Bitmap(image);
+            ColorManipulator.AdjustHue(imageBitmap, hsiValues, +10);
+            pictBoxImg1.Image = imageBitmap;
+        }
+
+        private void removeHue_Click(object sender, EventArgs e)
+        {
+            imageBitmap = new Bitmap(image);
+            ColorManipulator.AdjustHue(imageBitmap, hsiValues, -10);
+            pictBoxImg1.Image = imageBitmap;
+        }
     }
 }

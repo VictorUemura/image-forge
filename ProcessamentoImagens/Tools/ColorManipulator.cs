@@ -159,6 +159,38 @@ namespace ProcessamentoImagens
             src.UnlockBits(bitmapDataSrc);
         }
 
+        public static void AdjustHue(Bitmap src, HSI[][] hsiValues, int hueAdjustment)
+        {
+            int width = src.Width;
+            int height = src.Height;
+            int pixelSize = 3;
+
+            BitmapData bitmapDataSrc = src.LockBits(new Rectangle(0, 0, width, height),
+                ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
+
+            int padding = bitmapDataSrc.Stride - (width * pixelSize);
+            unsafe
+            {
+                byte* srcPointer = (byte*)bitmapDataSrc.Scan0.ToPointer();
+                for (int y = 0; y < height; y++)
+                {
+                    for (int x = 0; x < width; x++)
+                    {
+                        hsiValues[x][y].H = (hsiValues[x][y].H + hueAdjustment) % 360;
+                        if (hsiValues[x][y].H < 0) hsiValues[x][y].H = 0;
+
+                        RGB rgb = Utils.ToRGB(hsiValues[x][y]);
+
+                        *(srcPointer++) = (byte)rgb.B;
+                        *(srcPointer++) = (byte)rgb.G;
+                        *(srcPointer++) = (byte)rgb.R;
+                    }
+                    srcPointer += padding;
+                }
+            }
+            src.UnlockBits(bitmapDataSrc);
+        }
+
         public static void FilterRangeHue(int valueOne, int valueTwo, Bitmap src, HSI[][] hsiValues)
         {
             int width = src.Width;
